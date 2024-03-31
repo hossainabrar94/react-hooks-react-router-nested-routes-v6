@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
+import UserCard from "../components/UserCard";
 
-function UserCard({user}) {
-    return (
-      <article>
-          <h2>{user.name}</h2>
-          <Link to={`/profile/${user.id}`}>View profile</Link>
-      </article>
-    );
-  };
-  
-  export default UserCard;
+function Home(){
+    const users = useOutletContext();
+    const userList = users.map(user => <UserCard key={user.id} user={user}/>);
+
+  return (
+      <main>
+        <h1>Home!</h1>
+        <Outlet context={users}/>
+        {userList}
+      </main>
+  );
+};
+
+export default Home;
